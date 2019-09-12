@@ -1,23 +1,23 @@
 public class Car {
-    private float carlength;
+    int carPosition;
 
-    public Car(float carlength) {
-        this.carlength = carlength;
+    Car(int carPosition) {
+        this.carPosition = carPosition;
     }
 
-    public void moveCar() {
-
+    void moveCarForward() {
+        carPosition++;
     }
 
     public void generateCar() {
 
     }
 
-    public float getCarlength() {
-        return carlength;
+    int getCarPosition() {
+        return carPosition;
     }
 
-    public void setCarlength(float carlength) {
-        this.carlength = carlength;
+    void setCarPosition(int carPosition) {
+        this.carPosition = carPosition;
     }
 }

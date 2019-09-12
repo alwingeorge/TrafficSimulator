@@ -1,29 +1,31 @@
 public class Road {
     private Car car;
     private TrafficLight trafficLight;
-    private float roadLength;
 
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
+    public Road(Car car, TrafficLight trafficLight) {
         this.car = car;
-    }
-
-    public TrafficLight getTrafficLight() {
-        return trafficLight;
-    }
-
-    public void setTrafficLight(TrafficLight trafficLight) {
         this.trafficLight = trafficLight;
     }
 
-    public float getRoadLength() {
-        return roadLength;
+    Road() {
+        car = new Car(0);
+        trafficLight = new TrafficLight("R");
     }
 
-    public void setRoadLength(float roadLength) {
-        this.roadLength = roadLength;
+    Car getCar() {
+        return car;
     }
+
+    void setCar(Car car) {
+        this.car = car;
+    }
+
+    TrafficLight getTrafficLight() {
+        return trafficLight;
+    }
+
+    void setTrafficLight(TrafficLight trafficLight) {
+        this.trafficLight = trafficLight;
+    }
+
 }

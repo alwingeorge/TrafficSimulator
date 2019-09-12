@@ -1,5 +1,5 @@
-public class Bus extends Car {
-    public Bus(float carlength) {
-        super(carlength);
-    }
-}
+//public class Bus extends Car {
+//    public Bus(float carlength) {
+//        super(carlength);
+//    }
+//}
