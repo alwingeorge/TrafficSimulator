@@ -1,41 +1,21 @@
-import java.util.Random;
+import java.awt.Color;
 
-class TrafficLight {
-    private String signal;
-    private int duration;
+public class TrafficLight {
 
-    TrafficLight(String signal) {
-        this.signal = signal;
-    }
+    // Attributes..
+    private int roadNumber; // road number..
+    private Color color; // color of traffic light
 
-    void simulateTrafficLight(int duration) {
-        try {
-            Random random = new Random();
-            int num = random.nextInt(2);
-            if (num == 1) {
-                this.signal = "G";
-            } else {
-                this.signal = "R";
-            }
-            Thread.sleep(duration);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+    /**
+     * Constructor.
+     *
+     * @param roadNumber
+     * @param color
+     */
+    public TrafficLight(int roadNumber, Color color) {
 
-    String getSignal() {
-        return signal;
-    }
+        this.roadNumber = roadNumber;
+        this.color = color;
 
-    void setSignal(String signal) {
-        this.signal = signal;
-    }
-
-    int getDuration() {
-        return duration;
-    }
-
-    void setDuration(int duration) {
-        this.duration = duration;
     }
 }
