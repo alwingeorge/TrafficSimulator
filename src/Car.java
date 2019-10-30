@@ -1,23 +1,20 @@
-public class Car {
-    int carPosition;
+import java.awt.Color;
 
-    Car(int carPosition) {
-        this.carPosition = carPosition;
+public class Car extends Vehicle {
+
+    /**
+     * Constructor.
+     *
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param roadNumber
+     */
+    public Car(int x, int y, int width, int height, int roadNumber) {
+
+        super(x, y, width, height, roadNumber, Color.GREEN);
+
     }
 
-    void moveCarForward() {
-        carPosition++;
-    }
-
-    public void generateCar() {
-
-    }
-
-    int getCarPosition() {
-        return carPosition;
-    }
-
-    void setCarPosition(int carPosition) {
-        this.carPosition = carPosition;
-    }
 }
