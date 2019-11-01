@@ -104,3 +104,244 @@ public class SimulationPanel extends JPanel {
                         Thread.sleep(10);
                     } catch (InterruptedException e) {
                     }
+
+                    // Initializing again all arrays to MIN_VALUE
+                    Arrays.fill(distanceBeforeLight, Integer.MIN_VALUE);
+
+                    // iterate through all vehicles
+                    // to move them on the road.
+                    for (Vehicle vehicle : vehicleList) {
+
+                        // To check if the car is allowed to move
+                        // and the respective traffic light
+                        // is on or off. so that we can decide
+                        // about vehicle's movement.
+                        if (lights[vehicle.getRoadNumber() - 1].canMove(vehicle, distanceBeforeLight)) {
+
+                            // if we are allowed to move
+                            // update the vehicle location
+                            vehicle.updateVehicle();
+
+                        }
+
+                    }
+                    // updating the screen.
+                    repaint();
+
+                }
+
+            }
+
+        }.start();
+
+        // creating a thread to automate the process
+        // of adding vehicles in the simulation.
+        new Thread() {
+
+            @Override
+            public void run() {
+
+                // adding the vehicles continuously...
+                while (true) {
+
+                    // sleep creating a car process
+                    // for 1000 milliseconds.
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                    }
+
+                    // creating a random vehicle
+                    // and add it on the road.
+                    createRandomVehicle();
+                    // updating the screen.
+                    repaint();
+
+                }
+
+            }
+
+        }.start();
+
+    }
+
+    /**
+     * Painting all components on the screen.
+     */
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // setting color of road. Grey
+        // it will execute always until
+        // user click to stop the simulation.
+        g.setColor(new Color(220, 220, 220));
+
+        /*
+         *
+         * Creating Roads..
+         *
+         */
+        // vertical
+        g.fillRect(240, 0, 21, 500);
+        // horizontal
+        g.fillRect(0, 240, 500, 21);
+
+        g.setColor(Color.WHITE);
+        // vertical center line.
+        g.fillRect(250, 0, 2, 500);
+        // horizontal center line
+        g.fillRect(0, 250, 500, 2);
+
+        /*
+         *
+         * Setting Traffic Lights..
+         *
+         *
+         */
+
+        // top lane.
+        // drawing box
+        g.setColor(Color.WHITE);
+        g.fillRect(264, 225, 12, 12);
+        g.setColor(Color.BLACK);
+        // outline circle
+        g.drawOval(265, 226, 10, 10);
+        g.setColor(lights[0].getColor());
+        // light.
+        g.fillOval(266, 227, 8, 8);
+
+        // right
+        // drawing box
+        g.setColor(Color.WHITE);
+        g.fillRect(264, 264, 12, 12);
+        g.setColor(Color.BLACK);
+        // outline circle
+        g.drawOval(265, 265, 10, 10);
+        g.setColor(lights[1].getColor());
+        // light.
+        g.fillOval(266, 266, 8, 8);
+
+        // bottom-vertical lane.
+        // drawing box
+        g.setColor(Color.WHITE);
+        g.fillRect(225, 264, 12, 12);
+        g.setColor(Color.BLACK);
+        // outline circle
+        g.drawOval(226, 265, 10, 10);
+        g.setColor(lights[2].getColor());
+        // light.
+        g.fillOval(227, 266, 8, 8);
+
+        // left-horizontal..
+        // drawing box
+        g.setColor(Color.WHITE);
+        g.fillRect(225, 225, 12, 12);
+        g.setColor(Color.BLACK);
+        // outline circle
+        g.drawOval(226, 226, 10, 10);
+        g.setColor(lights[3].getColor());
+        // light.
+        g.fillOval(227, 227, 8, 8);
+
+        // drawing vehicles..
+        for (Vehicle vehicle : vehicleList) {
+
+            // setting color of vehicle
+            g.setColor(vehicle.getColor());
+            // painting the vehicle on the screen.
+            g.fillRect(vehicle.getX(), vehicle.getY(), vehicle.getWidth(), vehicle.getHeight());
+
+        }
+
+    }
+
+    /**
+     * Randomly creating a vehicle...
+     */
+    public void createRandomVehicle() {
+
+        Random random = new Random();
+        int vehicleType = random.nextInt(3); // selecting from 4 vehicles.
+        int roadType = 1 + random.nextInt(4); // selecting from 4 road types
+        int x = 0, y = 0;
+        int width = 0, height = 0;
+        // setting values of x and y for the vehicle
+        // according to the road type.
+        switch (roadType) {
+
+            // setting the variables of the car
+            // according to the selected options.
+
+            // if selected road is 1.
+            case 1:
+                x = 253;
+                y = -30;
+                width = 5;
+                if (vehicleType == 1) {
+                    height = 10;
+                } else {
+                    height = 30;
+                }
+                break;
+            // if selected road is 2.
+            case 2:
+                x = 530;
+                y = 253;
+                height = 5;
+                if (vehicleType == 1) {
+                    width = 10;
+                } else {
+                    width = 30;
+                }
+                break;
+            // if selected road is 3.
+            case 3:
+                x = 242;
+                y = 530;
+                width = 5;
+                if (vehicleType == 1) {
+                    height = 10;
+                } else {
+                    height = 30;
+                }
+                break;
+            // if selected road is 4.
+            case 4:
+                x = -30;
+                y = 242;
+                height = 5;
+                if (vehicleType == 1) {
+                    width = 10;
+                } else {
+                    width = 30;
+                }
+                break;
+
+        }
+
+        Vehicle vehicle = null;
+
+        // creating a object randomly....
+        switch (vehicleType) {
+
+            case 0:
+                // creating a bike.
+                vehicle = new Bike(x, y, roadType);
+                break;
+            case 1:
+                // creating a car.
+                vehicle = new Car(x, y, width, height, roadType);
+                break;
+            case 2:
+                // creating a bus.
+                vehicle = new Bus(x, y, width, height, roadType);
+                break;
+
+        }
+
+        // adding it into the list.
+        this.vehicleList.add(vehicle);
+
+    }
+
+}
