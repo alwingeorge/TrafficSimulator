@@ -65,3 +65,25 @@ public class SimulationPanel extends JPanel {
                         Thread.sleep(5000);
                     } catch (InterruptedException e) {
                     }
+
+                    // updating the current light to red.
+                    lights[trafficLightIndex].setColor(Color.RED);
+                    // updating the screen.
+                    repaint();
+                    // sleeping the traffic light for 1 second
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                    }
+                    // increasing the index so that we can
+                    // change the lights in a circle.
+                    trafficLightIndex = (trafficLightIndex + 1) % 4;
+                    lights[trafficLightIndex].setColor(Color.GREEN);
+                    // updating the screen.
+                    repaint();
+
+                }
+
+            }
+
+        }.start();
