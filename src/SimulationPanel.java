@@ -87,3 +87,20 @@ public class SimulationPanel extends JPanel {
             }
 
         }.start();
+
+        // creating a thread to automate the process
+        // of moving the vehicles..
+        new Thread() {
+
+            @Override
+            public void run() {
+
+                // updating the vehicles continuously...
+                while (true) {
+
+                    // sleeping the process of creating
+                    // vehicles for 10 milliseconds.
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                    }
