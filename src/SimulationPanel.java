@@ -48,3 +48,20 @@ public class SimulationPanel extends JPanel {
         distanceBeforeLight = new int[4];
         // filling with minimum values
         Arrays.fill(distanceBeforeLight, Integer.MIN_VALUE);
+
+        // creating a thread to automate the process
+        // of changing traffic lights with a delay of
+        // 10 seconds..
+        new Thread() {
+
+            @Override
+            public void run() {
+
+                // changing the lights continuously...
+                while (true) {
+
+                    // sleeping the traffic light for 5 seconds
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                    }
